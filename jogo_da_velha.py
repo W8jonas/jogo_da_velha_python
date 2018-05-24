@@ -4,7 +4,7 @@ import sys
 import random
 import time
 
-#####   Variaveis caralho  #####
+#####   Variaveis   #####
 
 largura = 600
 altura = 470
@@ -52,4 +52,4 @@ jogo()
 # depois comparar os valores da matriz com os valores para ganhar.
 # finalizar o projeto
 # IDEIA NOVA
-# Usar fundo preto e colocar cada quadrado branco formando a tabuleiro
+# Usar fundo preto e colocar cada quadrado branco formando o tabuleiro
