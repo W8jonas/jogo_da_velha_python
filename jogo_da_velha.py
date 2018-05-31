@@ -1,22 +1,24 @@
 import pygame
 from pygame.locals import *
+import time
 import sys
 
 largura = 500
 altura = 500
 preto = (0, 0, 0)
 branco = (255, 255, 255)
-ponto_mouse_cor = (0, 0, 0)
 tamanho = largura / 3.334
 posicoes = []
 respostas = [1, 1, 1, 1, 1, 1, 1, 1, 1]
 imagem_de_fundo = preto
+ponto_mouse_cor = imagem_de_fundo
 cor_x = "preto"
 cor_o = "preto"
 pygame.init()
 relogio = pygame.time.Clock()
 contador = 0
-ganhou = 'o'
+condicao = True
+ganhou = '-'
 
 
 def vitoria(valor_de_teste):
@@ -52,6 +54,7 @@ def vitoria(valor_de_teste):
 
 
 def jogo():
+    global condicao
     global posicoes
     global respostas
     tela = pygame.display.set_mode([largura, altura])
@@ -75,7 +78,7 @@ def jogo():
 
     ponto_mouse = pygame.Rect(100, 100, 1, 1)
     jogador_atual = jogador_1
-    while True:
+    while condicao:
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -85,13 +88,14 @@ def jogo():
                 for i in range(0, 9):
                     if (ponto_mouse.colliderect(posicoes[i])) and (respostas[i] == 1):
                         respostas[i] = jogador_atual
-                        vitoria(jogador_atual)
-                        if ganhou == 'X':
-                            print('O X ganhou a rodada')
-                        elif ganhou == 'O':
-                            print('A O ganhou a rodada')
-                        elif ganhou == 'e':
-                            print('Deu empate')
+                        if vitoria(jogador_atual) is not '-':
+                            if ganhou == 'X':
+                                print('O X ganhou a rodada')
+                            elif ganhou == 'O':
+                                print('A O ganhou a rodada')
+                            elif ganhou == 'e':
+                                print('Deu empate')
+                            condicao = False
                         if jogador_atual == jogador_1:
                             jogador_atual = jogador_2
                         else:
@@ -111,6 +115,9 @@ def jogo():
 
         pygame.display.update()
         relogio.tick(50)
+    time.sleep(5)
+    pygame.quit()
+    sys.exit()
 
 
 jogador_1 = input(print('Escolha X ou O'))
@@ -120,7 +127,8 @@ if jogador_1 == 'X' or jogador_1 == 'O':
 
     if jogador_1 == 'X':
         jogador_2 = 'O'
-        cor_x = input(print("Jogador 1, escolha a cor do seu X   (Azul, vermelho, verde, preto, amarelo, laranja, roxo)"))
+        cor_x = input(
+            print("Jogador 1, escolha a cor do seu X   (Azul, vermelho, verde, preto, amarelo, laranja, roxo)"))
         cor_o = input(print("Jogador 2, escolha a cor da sua O"))
     else:
         jogador_2 = 'X'
@@ -145,5 +153,7 @@ texto2 = "imagens/jogo_da_velha_modelos_X_" + cor_x + ".png"
 imagem_O = pygame.image.load(texto1)
 imagem_X = pygame.image.load(texto2)
 
+imagem_O = pygame.transform.smoothscale(imagem_O, (int(largura / 3.334), int(largura / 3.334)))
+imagem_X = pygame.transform.smoothscale(imagem_X, (int(largura / 3.334), int(largura / 3.334)))
 
 jogo()
