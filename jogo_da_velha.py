@@ -17,6 +17,11 @@ imagem_O = pygame.image.load('imagens/jogo_da_velha_modelos_O_azul.png')
 imagem_X = pygame.image.load('imagens/jogo_da_velha_modelos_X_vermelho.png')
 
 
+def vitoria(valor_de_teste):
+    if valor_de_teste == 'X':
+        print("Recebi X")
+
+
 def jogo():
     global posicoes
     global respostas
@@ -51,6 +56,7 @@ def jogo():
                 for i in range(0, 9):
                     if (ponto_mouse.colliderect(posicoes[i])) and (respostas[i] == 1):
                         respostas[i] = jogador_atual
+                        vitoria(jogador_atual)
                         if jogador_atual == jogador_1:
                             jogador_atual = jogador_2
                         else:
