@@ -11,15 +11,44 @@ tamanho = largura / 3.334
 posicoes = []
 respostas = [1, 1, 1, 1, 1, 1, 1, 1, 1]
 imagem_de_fundo = preto
+cor_x = "preto"
+cor_o = "preto"
 pygame.init()
 relogio = pygame.time.Clock()
-imagem_O = pygame.image.load('imagens/jogo_da_velha_modelos_O_azul.png')
-imagem_X = pygame.image.load('imagens/jogo_da_velha_modelos_X_vermelho.png')
+contador = 0
+ganhou = 'o'
 
 
 def vitoria(valor_de_teste):
-    if valor_de_teste == 'X':
-        print("Recebi X")
+    global ganhou
+    global contador
+    contador += 1
+    if respostas[0] == valor_de_teste and respostas[1] == valor_de_teste and respostas[2] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[3] == valor_de_teste and respostas[4] == valor_de_teste and respostas[5] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[6] == valor_de_teste and respostas[7] == valor_de_teste and respostas[8] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[0] == valor_de_teste and respostas[3] == valor_de_teste and respostas[6] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[1] == valor_de_teste and respostas[4] == valor_de_teste and respostas[7] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[2] == valor_de_teste and respostas[5] == valor_de_teste and respostas[8] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[0] == valor_de_teste and respostas[4] == valor_de_teste and respostas[8] == valor_de_teste:
+        ganhou = valor_de_teste
+
+    elif respostas[2] == valor_de_teste and respostas[4] == valor_de_teste and respostas[6] == valor_de_teste:
+        ganhou = valor_de_teste
+    elif contador == 9:
+        ganhou = "e"
+    return ganhou
 
 
 def jogo():
@@ -57,6 +86,12 @@ def jogo():
                     if (ponto_mouse.colliderect(posicoes[i])) and (respostas[i] == 1):
                         respostas[i] = jogador_atual
                         vitoria(jogador_atual)
+                        if ganhou == 'X':
+                            print('O X ganhou a rodada')
+                        elif ganhou == 'O':
+                            print('A O ganhou a rodada')
+                        elif ganhou == 'e':
+                            print('Deu empate')
                         if jogador_atual == jogador_1:
                             jogador_atual = jogador_2
                         else:
@@ -85,16 +120,30 @@ if jogador_1 == 'X' or jogador_1 == 'O':
 
     if jogador_1 == 'X':
         jogador_2 = 'O'
+        cor_x = input(print("Jogador 1, escolha a cor do seu X   (Azul, vermelho, verde, preto, amarelo, laranja, roxo)"))
+        cor_o = input(print("Jogador 2, escolha a cor da sua O"))
     else:
         jogador_2 = 'X'
+        cor_o = input(print("Jogador 1, escolha a cor da sua O"))
+        cor_x = input(print("Jogador 2, escolha a cor do seu X"))
 
 else:
-    print("Você é retardado e digitou errado")
-    print("Nesse caso,")
+    print("Você digitou errado. Nesse caso:")
     jogador_1 = 'X'
     jogador_2 = 'O'
+    cor_x = input(print("Jogador 1, escolha a cor do seu X   (Azul, vermelho, verde, preto, amarelo, laranja, roxo)"))
+    cor_o = input(print("Jogador 2, escolha a cor da sua O"))
 
-print(f'O jogador 1 fica com {jogador_1}')
-print(f'E o jogador 2 fica com {jogador_2}')
+cor_x = cor_x.lower()
+cor_o = cor_o.lower()
+print(f'O jogador 1 fica com {jogador_1} {cor_x} e o jogador 2 fica com {jogador_2} {cor_o}')
+
+print(cor_x)
+print(cor_o)
+texto1 = "imagens/jogo_da_velha_modelos_O_" + cor_o + ".png"
+texto2 = "imagens/jogo_da_velha_modelos_X_" + cor_x + ".png"
+imagem_O = pygame.image.load(texto1)
+imagem_X = pygame.image.load(texto2)
+
 
 jogo()
