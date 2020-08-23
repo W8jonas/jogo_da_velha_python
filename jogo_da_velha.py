@@ -92,9 +92,9 @@ def jogo():
                             if ganhou == 'X':
                                 print('O X ganhou a rodada')
                             elif ganhou == 'O':
-                                print('A O ganhou a rodada')
+                                print('O O ganhou a rodada')
                             elif ganhou == 'e':
-                                print('Deu empate')
+                                print('Deu velha')
                             condicao = False
                         if jogador_atual == jogador_1:
                             jogador_atual = jogador_2
